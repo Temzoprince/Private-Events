@@ -1,0 +1,14 @@
+<h1>Welcome <%= @user.email %>, here are all of your created events </h1>
+
+<ul>
+    <% @user.events.each do |event| %>
+        <li>
+        <%= event.name %>
+        <br>
+        Location: <%= event.location %>
+        <br>
+        Date: <%= event.date %>
+        </li>
+    <% end %>
+</ul>
+<%= button_to "Sign out", destroy_user_session_path, method: :delete %>

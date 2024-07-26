@@ -4,8 +4,12 @@
   <% @events.each do |event| %>
     <li>
       <%= event.name %>
-      <br>
-      <%= event.location %>
     </li>
   <% end %>
 </ul>
+
+<% if user_signed_in? %>
+  <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
+<% else %>
+  <%= button_to "Sign in", new_user_session_path, method: :get %>
+<% end %>
