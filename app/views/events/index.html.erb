@@ -10,6 +10,10 @@
 
 <% if user_signed_in? %>
   <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
+  <br>
+  <%= link_to "Create a new event", new_event_path %>
+  <br>
+  <%= link_to "See all the events you've created", current_user %>
 <% else %>
   <%= button_to "Sign in", new_user_session_path, method: :get %>
 <% end %>
