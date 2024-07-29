@@ -4,11 +4,7 @@ class Event < ApplicationRecord
   has_many :attendances
   has_many :attendees, through: :attendances
 
-  def self.past
-    all.select { |event| event.date < Date.current }
-  end
-
-  def self.upcoming
-    all.select { |event| event.date >= Date.current }
-  end
+  # Scopes
+  scope :past, ->(date) { where('date < ?', date) }
+  scope :upcoming, ->(date) { where('date > ?', date) }
 end
