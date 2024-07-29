@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   # Routes for the models
   resources :events, only: [:index, :show, :new, :create]
   resources :users, only: [:show]
+  resources :attendances, only: [:new, :create]
 end

@@ -6,4 +6,6 @@ class User < ApplicationRecord
 
   # Associations
   has_many :events, inverse_of: 'creator'
+  has_many :attendances
+  has_many :attended_events, through: :attendances
 end

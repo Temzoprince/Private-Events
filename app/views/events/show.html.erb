@@ -4,4 +4,14 @@
 <p>Location: <%= @event.location %><p>
 <p>Date: <%= @event.date %><p>
 <br>
-<%= link_to "Show all posts created", events_path %>
+
+<ul>
+  <% @event.attendees.each do |attendee| %>
+    <li>
+      <%= attendee.email %>
+    </li>
+  <% end %>
+</ul>
+
+<br>
+<%= link_to "See all events", events_path %>
