@@ -6,5 +6,5 @@ class Event < ApplicationRecord
 
   # Scopes
   scope :past, ->(date) { where('date < ?', date) }
-  scope :upcoming, ->(date) { where('date > ?', date) }
+  scope :upcoming, ->(date) { where('date >= ?', date) }
 end
