@@ -10,7 +10,12 @@ Rails.application.routes.draw do
   root "events#index"
 
   # Routes for the models
-  resources :events, only: [:index, :show, :new, :create]
+  resources :events
+  resources :events do
+    member do
+      post 'attend'
+    end
+  end
   resources :users, only: [:show]
   resources :attendances, only: [:new, :create]
 end
