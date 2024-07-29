@@ -1,5 +1,6 @@
-<h1>Welcome <%= @user.email %>, here are all of your created events </h1>
+<h1>Welcome <%= @user.email %></h1>
 
+<h2> Here are all of your created events </h2>
 <ul>
     <% @user.events.each do |event| %>
         <li>
@@ -11,5 +12,35 @@
         </li>
     <% end %>
 </ul>
+
+<h2> Here are all the events you are attending </h2>
+<ul>
+    <% past_events = @user.attended_events.select { |event| event.date >= Date.current } %>
+    <% past_events.each do |event| %>
+        <li>
+        <%= event.name %>
+        <br>
+        Location: <%= event.location %>
+        <br>
+        Date: <%= event.date %>
+        </li>
+    <% end %>
+</ul>
+<br>
+
+<h2> Here are all the events you have attended </h2>
+<ul>
+    <% upcoming_events = @user.attended_events.select { |event| event.date < Date.current } %>
+    <% upcoming_events.each do |event| %>
+        <li>
+        <%= event.name %>
+        <br>
+        Location: <%= event.location %>
+        <br>
+        Date: <%= event.date %>
+        </li>
+    <% end %>
+</ul>
+<br>
 <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
 <%= link_to "See all events", events_path, method: :get%>

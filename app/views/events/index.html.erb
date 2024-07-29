@@ -13,7 +13,7 @@
   <br>
   <%= link_to "Create a new event", new_event_path %>
   <br>
-  <%= link_to "See all the events you've created", current_user %>
+  <%= link_to "See your profile", current_user %>
 <% else %>
   <%= button_to "Sign in", new_user_session_path, method: :get %>
 <% end %>
