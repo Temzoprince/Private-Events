@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
-  # before_action :set_event, only: [:destroy]
+  before_action :set_event, only: [:destroy]
   def index
     @events = Event.all
   end
@@ -38,15 +38,12 @@ class EventsController < ApplicationController
   end
 
   def destroy
-    # if @event
-    #   @event.destroy
-    #   redirect_to current_user 'Event was successfully deleted'
-    # else
-    #   redirect_to current_user 'There was a problem deleting this event'
-    # end
-    @event = Event.find(params[:id])
-    @event.destroy
-    redirect_to current_user, notice: 'Event was successfully deleted'
+    if @event && @event.creator == current_user
+      @event.destroy
+      redirect_to current_user, notice: 'Event was successfully deleted'
+    else
+      redirect_to current_user, notice: 'There was a problem deleting this event'
+    end
   end
 
   def attend
@@ -62,13 +59,13 @@ class EventsController < ApplicationController
 
   private
 
-  # def set_event
-  #   @event = Event.find(params[:id])
+  def set_event
+    @event = Event.find(params[:id])
 
-  #   unless @event
-  #     redirect_to events_url, alert: 'Event not found'
-  #   end
-  # end
+    unless @event
+      redirect_to events_url, alert: 'Event not found'
+    end
+  end
 
   def event_params
     params.require(:event).permit(:name, :location, :date)
