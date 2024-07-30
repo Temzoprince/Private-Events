@@ -1,4 +1,5 @@
 <h1>Welcome <%= @user.email %></h1>
+<%= link_to "See all events", events_path, method: :get%>
 
 <h2> Here are all of your created events </h2>
 <ul>
@@ -9,6 +10,11 @@
         Location: <%= event.location %>
         <br>
         Date: <%= event.date %>
+        <br>
+        <%= button_to 'Edit event', edit_event_path(event), method: :get %>
+        <%= button_to 'Delete event', event_path(event), method: :delete, data: {
+                                        turbo_method: :delete,
+                                        turbo_confirm: "Are you sure?"} %>
         </li>
     <% end %>
 </ul>
@@ -26,7 +32,6 @@
         </li>
     <% end %>
 </ul>
-<br>
 
 <h2> Here are all the events you have attended </h2>
 <ul>
@@ -43,4 +48,3 @@
 </ul>
 <br>
 <%= button_to "Sign out", destroy_user_session_path, method: :delete %>
-<%= link_to "See all events", events_path, method: :get%>

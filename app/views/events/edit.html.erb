@@ -1,0 +1,26 @@
+<h1> Welcome <%= current_user.email %> </h1>
+<h2> Edit event: <%= @event.name %> <h2>
+
+<% if @event.errors.any? %>
+  <div id="error explanation">
+  <h4><%= pluralize(@event.errors.count, "error") %> prohibited this event from being created</h4>
+  <ul>
+    <% @event.errors.each do |error| %>
+      <li><%=error.full_message %></li>
+    <% end %>
+  </ul>
+  </div>
+<% end %> 
+
+<%= form_with model: @event do |form| %>
+  <%= form.label :name, "Event name:"%>
+  <%= form.text_field :name  %>
+  <br><br>
+  <%= form.label :location, "Location:" %>
+  <%= form.text_field :location, placeholder: "Event location" %>
+  <br><br>
+  <%= form.label :date, "Event date:" %>
+  <%= form.date_field :date, :value => @event.date %>
+  <br><br>
+  <%= form.submit "Update" %>
+<% end %>

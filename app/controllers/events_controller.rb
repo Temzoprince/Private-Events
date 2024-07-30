@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
+  # before_action :set_event, only: [:destroy]
   def index
     @events = Event.all
   end
@@ -22,6 +23,32 @@ class EventsController < ApplicationController
     end
   end
 
+  def edit
+    @event = Event.find(params[:id])
+  end
+
+  def update
+    @event = Event.find(params[:id])
+
+    if @event.update(event_params)
+      redirect_to @event, notice: 'Event was successfully updated'
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    # if @event
+    #   @event.destroy
+    #   redirect_to current_user 'Event was successfully deleted'
+    # else
+    #   redirect_to current_user 'There was a problem deleting this event'
+    # end
+    @event = Event.find(params[:id])
+    @event.destroy
+    redirect_to current_user, notice: 'Event was successfully deleted'
+  end
+
   def attend
     @event = Event.find(params[:id])
     attendance = @event.attendances.build(attendee: current_user)
@@ -32,6 +59,16 @@ class EventsController < ApplicationController
       redirect_to @event, notice: 'There was a problem reserving a spot at this event'
     end
   end
+
+  private
+
+  # def set_event
+  #   @event = Event.find(params[:id])
+
+  #   unless @event
+  #     redirect_to events_url, alert: 'Event not found'
+  #   end
+  # end
 
   def event_params
     params.require(:event).permit(:name, :location, :date)

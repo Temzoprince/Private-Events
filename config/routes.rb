@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   root "events#index"
 
   # Routes for the models
-  resources :events
   resources :events do
     member do
       post 'attend'
