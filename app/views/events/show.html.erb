@@ -1,6 +1,7 @@
-<h1>Event <%= @event.name %></h1>
+<h1>Event: <%= @event.name %></h1>
+<%= link_to "See all events", events_path %>
 
-<p><%= @event.name %><p>
+<p>Name: <%= @event.name %><p>
 <p>Location: <%= @event.location %><p>
 <p>Date: <%= @event.date %><p>
 <br>
@@ -15,10 +16,8 @@
 </ul>
 
 <% if @event.attendees.include? current_user %>
-<p>You are attending this event already</p>
+<p>You are attending this event</p>
+<%= button_to 'Unattend', unattend_event_path, method: :delete %>
 <% else %>
 <%= button_to 'Attend', attend_event_path, method: :post %>
 <% end %>
-
-<br>
-<%= link_to "See all events", events_path %>

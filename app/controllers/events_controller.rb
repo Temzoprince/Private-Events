@@ -57,6 +57,18 @@ class EventsController < ApplicationController
     end
   end
 
+  def unattend
+    @event = Event.find(params[:id])
+    attendance = @event.attendances.find_by(attendee: current_user)
+    if attendance
+      attendance.destroy
+      redirect_to @event, notice: 'You have successfully revoked your reservation at this event'
+    else
+      Rails.logger.debug attendance.errors.full_messages.to_sentence
+      redirect_to @event, notice: 'There was a problem revoking your reservation at this event'
+    end
+  end
+
   private
 
   def set_event
